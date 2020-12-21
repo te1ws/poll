@@ -2,6 +2,7 @@ package java.android.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -14,6 +15,7 @@ public class Activity extends MainActivity {
     private Button mWriteResult;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,44 +24,35 @@ public class Activity extends MainActivity {
         mPrivate = findViewById(R.id.check_private);
         mProtected = findViewById(R.id.check_protected);
         mPublic = findViewById(R.id.check_public);
+        points = getIntent().getIntExtra("points", 0);
+
 
         mWriteResult = findViewById(R.id.write_result);
 
-        mDefault.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mDefault.isChecked())
-                    points=points+1;
-            }
-        });
 
-        mPrivate.setOnClickListener(new View.OnClickListener() {
+        mWriteResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mPrivate.isChecked())
-                    points=points+1;
-            }
-        });
+                if (mDefault.isChecked()){
+                    points++; }
+                else {
+                    points--;}
+                if (mPrivate.isChecked()){
+                    points++; }
+                else {
+                    points--;}
+                if (mPublic.isChecked()){
+                    points++; }
+                else {
+                    points--;}
+                if (mProtected.isChecked()){
+                    points++; }
+                else {
+                    points--;}
 
-        mPublic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mPublic.isChecked())
-                    points=points+1;
-            }
-        });
-
-        mProtected.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mProtected.isChecked())
-                    points=points+1;
-                Toast toast = Toast.makeText(getApplicationContext(), "Вы крут на "+points+" Гусейнов Гасановых из 5", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Вы крут на " + points + " Гусейнов Гасановых из 5", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
-
-
-
     }
 }
